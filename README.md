@@ -1,73 +1,99 @@
-# Welcome to your Lovable project
+# ResumeAI - AI-Powered Resume Builder
 
-## Project info
+A modern, AI-powered resume builder with beautiful templates and real-time preview.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## 🚀 Features
 
-## How can I edit this code?
+- **4 Professional Templates**: Modern, Classic, Minimal, and Creative designs
+- **Live Preview**: See changes in real-time as you type
+- **PDF Export**: Download your resume as a high-quality PDF
+- **Supabase Integration**: Save and manage multiple resumes
+- **Premium Features**: Unlock advanced templates and features
+- **ATS Optimized**: All templates are optimized for Applicant Tracking Systems
+- **Responsive Design**: Works perfectly on desktop and mobile
 
-There are several ways of editing your application.
+## 💰 Pricing
 
-**Use Lovable**
+- **Free**: 1 resume generation with basic templates
+- **One-Time (₹15)**: Single premium resume with all features
+- **Lifetime (₹199)**: Unlimited resumes + AI cover letters + LinkedIn optimization
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## 🛠️ Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Frontend**: React 18 + TypeScript + Vite
+- **UI**: Tailwind CSS + shadcn/ui
+- **Backend**: Supabase (Auth + Database)
+- **PDF Generation**: jsPDF + html2canvas
+- **3D Graphics**: Three.js
+- **State Management**: TanStack Query
 
-**Use your preferred IDE**
+## 📦 Installation
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+```bash
+# Clone the repository
+git clone https://github.com/Anurag03singh/rewritepush.git
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+# Navigate to project directory
+cd rewritepush
 
-Follow these steps:
+# Install dependencies
+npm install
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Set up environment variables
+cp .env.example .env
+# Add your Supabase credentials to .env
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Run development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## 🔧 Environment Variables
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Create a `.env` file with the following:
 
-**Use GitHub Codespaces**
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_anon_key
+VITE_SUPABASE_PROJECT_ID=your_project_id
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 📝 Database Setup
 
-## What technologies are used for this project?
+Run the Supabase migration to create necessary tables:
 
-This project is built with:
+```sql
+-- Run the SQL in supabase/migrations/20240213000000_create_resumes_table.sql
+-- in your Supabase SQL Editor
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 🎨 Available Templates
 
-## How can I deploy this project?
+1. **Modern Professional** - Clean design with accent colors (Free)
+2. **Classic ATS** - Traditional format optimized for ATS (Free)
+3. **Minimal Elegance** - Minimalist design (Premium)
+4. **Creative Bold** - Unique two-column layout (Premium)
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## 📱 Pages
 
-## Can I connect a custom domain to my Lovable project?
+- `/` - Landing page with features and pricing
+- `/auth` - Sign in / Sign up
+- `/dashboard` - Manage your resumes
+- `/builder` - Create/edit resume with live preview
 
-Yes, you can!
+## 🤝 Contributing
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## 📄 License
+
+MIT License - feel free to use this project for personal or commercial purposes.
+
+## 👨‍💻 Author
+
+Built with ❤️ by Anurag Singh
+
+## 🙏 Acknowledgments
+
+- Design inspired by modern SaaS applications
+- UI components from shadcn/ui
+- Icons from Lucide React

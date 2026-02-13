@@ -1,73 +1,106 @@
-import { motion } from "framer-motion";
 import { Brain, Target, Zap, FileText, Globe, Shield } from "lucide-react";
+import { useEffect } from "react";
 
 const features = [
   {
     icon: Brain,
-    title: "AI-Powered Rewriting",
-    description: "Transforms raw experience into quantified, action-driven bullet points that recruiters love.",
+    title: "AI-Powered Analysis",
+    description: "Advanced algorithms analyze job descriptions and optimize your resume for maximum ATS compatibility.",
+    color: "blue",
   },
   {
     icon: Target,
-    title: "JD Keyword Matching",
-    description: "Analyzes job descriptions and aligns your resume with the exact skills and keywords needed.",
+    title: "Keyword Matching",
+    description: "Automatically extracts and integrates relevant keywords from job postings into your resume.",
+    color: "purple",
   },
   {
     icon: Zap,
     title: "Instant Generation",
-    description: "Go from job description to tailored resume in under 30 seconds. No manual editing required.",
+    description: "Generate a perfectly tailored resume in under 30 seconds. No manual editing required.",
+    color: "emerald",
   },
   {
     icon: Shield,
     title: "ATS-Optimized",
-    description: "Every resume passes through ATS validation with a match score to maximize your chances.",
+    description: "Every resume is validated against ATS systems to ensure it passes automated screening.",
+    color: "orange",
   },
   {
     icon: Globe,
-    title: "Region-Specific Formats",
-    description: "Templates customized for USA, India, Japan, Middle East — respecting local hiring norms.",
+    title: "Multi-Region Support",
+    description: "Templates customized for USA, Europe, Asia, and Middle East hiring standards.",
+    color: "pink",
   },
   {
     icon: FileText,
-    title: "PDF & DOCX Export",
-    description: "Download your tailored resume instantly in the format you need. Ready to submit.",
+    title: "Export Options",
+    description: "Download in PDF or DOCX format, ready to submit to any job application platform.",
+    color: "indigo",
   },
 ];
 
-const Features = () => {
-  return (
-    <section id="features" className="py-24 bg-background">
-      <div className="container px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold font-display mb-4">
-            Built for <span className="text-gradient">Results</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Every feature is designed to get you past the ATS and into the interview room.
-          </p>
-        </motion.div>
+const colorClasses = {
+  blue: "bg-blue-500/10 text-blue-500",
+  purple: "bg-purple-500/10 text-purple-500",
+  emerald: "bg-emerald-500/10 text-emerald-500",
+  orange: "bg-orange-500/10 text-orange-500",
+  pink: "bg-pink-500/10 text-pink-500",
+  indigo: "bg-indigo-500/10 text-indigo-500",
+};
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+const Features = () => {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section id="features" className="py-32 bg-neutral-50/50 dark:bg-white/5 border-t border-neutral-200 dark:border-white/5">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 reveal-on-scroll">
+          <div className="max-w-2xl">
+            <h2 className="text-sm font-bold text-primary uppercase tracking-widest mb-3">
+              Core Technology
+            </h2>
+            <h3 className="text-4xl sm:text-5xl font-display font-semibold text-neutral-900 dark:text-white">
+              AI-Driven Resume Building
+            </h3>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
           {features.map((feature, i) => (
-            <motion.div
+            <div
               key={feature.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group p-6 rounded-xl bg-gradient-card border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-glow"
+              className={`p-8 rounded-3xl bg-white dark:bg-black border border-neutral-100 dark:border-white/10 shadow-xl shadow-neutral-200/50 dark:shadow-black/50 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 reveal-on-scroll delay-${(i % 3 + 1) * 100} group`}
             >
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                <feature.icon className="w-6 h-6 text-primary" />
+              <div
+                className={`w-12 h-12 ${colorClasses[feature.color as keyof typeof colorClasses]} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}
+              >
+                <feature.icon className="w-6 h-6" />
               </div>
-              <h3 className="text-lg font-semibold font-display mb-2">{feature.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
-            </motion.div>
+              <h4 className="text-xl font-bold text-neutral-900 dark:text-white mb-2">
+                {feature.title}
+              </h4>
+              <p className="text-neutral-500 dark:text-white/60 text-sm mb-6">
+                {feature.description}
+              </p>
+            </div>
           ))}
         </div>
       </div>

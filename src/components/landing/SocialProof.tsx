@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { Star } from "lucide-react";
+import { useEffect } from "react";
 
 const testimonials = [
   {
@@ -23,44 +23,58 @@ const testimonials = [
 ];
 
 const SocialProof = () => {
-  return (
-    <section className="py-24 bg-background">
-      <div className="container px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold font-display mb-4">
-            Loved by <span className="text-gradient">Job Seekers</span>
-          </h2>
-          <p className="text-muted-foreground text-lg">Real people, real results.</p>
-        </motion.div>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="p-6 rounded-xl bg-gradient-card border border-border/50"
-            >
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: t.rating }).map((_, j) => (
-                  <Star key={j} className="w-4 h-4 fill-primary text-primary" />
-                ))}
+    document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section id="pricing" className="py-32 px-6 max-w-7xl mx-auto">
+      <div className="mb-16 text-center reveal-on-scroll">
+        <h2 className="text-sm font-bold text-primary uppercase tracking-widest mb-3">
+          Testimonials
+        </h2>
+        <h3 className="text-4xl sm:text-5xl font-display font-semibold text-neutral-900 dark:text-white">
+          Loved by Job Seekers
+        </h3>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-8">
+        {testimonials.map((t, i) => (
+          <div
+            key={t.name}
+            className={`p-8 rounded-3xl bg-neutral-50 dark:bg-white/5 border border-neutral-200 dark:border-white/10 hover:border-primary/50 transition-all duration-300 reveal-on-scroll delay-${(i + 1) * 100}`}
+          >
+            <div className="flex gap-1 mb-4">
+              {Array.from({ length: t.rating }).map((_, j) => (
+                <Star key={j} className="w-4 h-4 fill-primary text-primary" />
+              ))}
+            </div>
+            <p className="text-sm text-neutral-600 dark:text-white/70 leading-relaxed mb-6">
+              "{t.text}"
+            </p>
+            <div>
+              <div className="font-semibold font-display text-sm text-neutral-900 dark:text-white">
+                {t.name}
               </div>
-              <p className="text-sm text-secondary-foreground leading-relaxed mb-4">"{t.text}"</p>
-              <div>
-                <div className="font-semibold font-display text-sm">{t.name}</div>
-                <div className="text-xs text-muted-foreground">{t.role}</div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              <div className="text-xs text-neutral-500 dark:text-white/50">{t.role}</div>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
