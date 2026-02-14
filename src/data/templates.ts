@@ -7,6 +7,7 @@ export const resumeTemplates: ResumeTemplate[] = [
     description: "Clean and contemporary design with accent colors",
     preview: "/templates/modern.png",
     isPremium: false,
+    category: "professional",
   },
   {
     id: "classic",
@@ -14,6 +15,23 @@ export const resumeTemplates: ResumeTemplate[] = [
     description: "Traditional format optimized for ATS systems",
     preview: "/templates/classic.png",
     isPremium: false,
+    category: "professional",
+  },
+  {
+    id: "executive",
+    name: "Executive Elite",
+    description: "Premium design for senior leadership positions",
+    preview: "/templates/executive.png",
+    isPremium: true,
+    category: "professional",
+  },
+  {
+    id: "tech",
+    name: "Tech Developer",
+    description: "Terminal-style design for developers and tech professionals",
+    preview: "/templates/tech.png",
+    isPremium: true,
+    category: "tech",
   },
   {
     id: "minimal",
@@ -21,6 +39,7 @@ export const resumeTemplates: ResumeTemplate[] = [
     description: "Minimalist design with maximum impact",
     preview: "/templates/minimal.png",
     isPremium: true,
+    category: "creative",
   },
   {
     id: "creative",
@@ -28,5 +47,22 @@ export const resumeTemplates: ResumeTemplate[] = [
     description: "Stand out with a unique creative layout",
     preview: "/templates/creative.png",
     isPremium: true,
+    category: "creative",
+  },
+  {
+    id: "anurag",
+    name: "Anurag Classic",
+    description: "Traditional Times New Roman format with clean sections",
+    preview: "/templates/anurag.png",
+    isPremium: false,
+    category: "professional",
+  },
+  {
+    id: "altacv",
+    name: "AltaCV Modern",
+    description: "Two-column design with elegant header and color accents",
+    preview: "/templates/altacv.png",
+    isPremium: true,
+    category: "creative",
   },
 ];

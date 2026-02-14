@@ -6,6 +6,10 @@ import ModernTemplate from "@/components/resume/templates/ModernTemplate";
 import ClassicTemplate from "@/components/resume/templates/ClassicTemplate";
 import MinimalTemplate from "@/components/resume/templates/MinimalTemplate";
 import CreativeTemplate from "@/components/resume/templates/CreativeTemplate";
+import ExecutiveTemplate from "@/components/resume/templates/ExecutiveTemplate";
+import TechTemplate from "@/components/resume/templates/TechTemplate";
+import AnuragTemplate from "@/components/resume/templates/AnuragTemplate";
+import AltaCVTemplate from "@/components/resume/templates/AltaCVTemplate";
 import { Button } from "@/components/ui/button";
 import { Download, Eye, Loader2, Save } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -114,6 +118,14 @@ const ResumeBuilder = () => {
         return <MinimalTemplate data={resumeData} />;
       case "creative":
         return <CreativeTemplate data={resumeData} />;
+      case "executive":
+        return <ExecutiveTemplate data={resumeData} />;
+      case "tech":
+        return <TechTemplate data={resumeData} />;
+      case "anurag":
+        return <AnuragTemplate data={resumeData} />;
+      case "altacv":
+        return <AltaCVTemplate data={resumeData} />;
       default:
         return <ModernTemplate data={resumeData} />;
     }

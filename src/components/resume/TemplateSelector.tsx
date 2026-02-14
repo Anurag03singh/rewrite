@@ -1,6 +1,13 @@
 import { resumeTemplates } from "@/data/templates";
 import { TemplateType } from "@/types/resume";
 import { Check, Lock } from "lucide-react";
+import ModernTemplate from "./templates/ModernTemplate";
+import ClassicTemplate from "./templates/ClassicTemplate";
+import ExecutiveTemplate from "./templates/ExecutiveTemplate";
+import TechTemplate from "./templates/TechTemplate";
+import MinimalTemplate from "./templates/MinimalTemplate";
+import CreativeTemplate from "./templates/CreativeTemplate";
+import AnuragTemplate from "./templates/AnuragTemplate";
 
 interface TemplateSelectorProps {
   selectedTemplate: TemplateType;

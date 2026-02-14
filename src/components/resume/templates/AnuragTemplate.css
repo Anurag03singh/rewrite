@@ -1,0 +1,120 @@
+/* Anurag Resume Template - Exact HTML Match */
+.resume-container {
+  width: 794px;
+  min-height: 1123px;
+  margin: 0 auto;
+  padding: 40px;
+  font-family: Arial, sans-serif;
+  background: white;
+  color: #000;
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+/* Header */
+h1 {
+  margin: 0 0 5px 0;
+  font-size: 24pt;
+  font-weight: bold;
+  color: #000;
+}
+
+.contact {
+  margin-bottom: 20px;
+  font-size: 11pt;
+  color: #000;
+}
+
+.contact a {
+  text-decoration: none;
+  color: #000;
+  margin-right: 10px;
+}
+
+/* Section Headings */
+h2 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #000;
+  padding-bottom: 5px;
+  font-size: 14pt;
+  font-weight: bold;
+  color: #000;
+}
+
+/* Section Content */
+.section {
+  margin-top: 20px;
+}
+
+.sub-heading {
+  font-weight: bold;
+  font-size: 11pt;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.date {
+  float: right;
+  font-weight: bold;
+  font-size: 11pt;
+}
+
+.clear {
+  clear: both;
+}
+
+/* Lists */
+ul {
+  margin-top: 5px;
+  margin-bottom: 15px;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+ul li {
+  font-size: 11pt;
+  line-height: 1.6;
+  margin-bottom: 5px;
+  color: #000;
+}
+
+/* Paragraphs in Skills Section */
+.section p {
+  margin: 5px 0;
+  font-size: 11pt;
+  line-height: 1.6;
+}
+
+.section p strong {
+  font-weight: bold;
+}
+
+/* Links in content */
+.sub-heading a {
+  color: #000;
+  text-decoration: none;
+}
+
+/* Print Optimization */
+@media print {
+  .resume-container {
+    width: 794px;
+    min-height: 1123px;
+    margin: 0 auto;
+    padding: 40px;
+    page-break-after: avoid;
+  }
+  
+  h2 {
+    page-break-after: avoid;
+  }
+  
+  .sub-heading {
+    page-break-after: avoid;
+  }
+  
+  ul {
+    page-break-inside: avoid;
+  }
+}

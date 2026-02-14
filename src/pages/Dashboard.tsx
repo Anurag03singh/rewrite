@@ -3,13 +3,17 @@ import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import type { User } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
-import { LogOut, FileText, Plus, Trash2, Edit } from "lucide-react";
+import { LogOut, FileText, Plus, Trash2, Edit, Library } from "lucide-react";
 import { toast } from "sonner";
 import { useResumes, useDeleteResume } from "@/hooks/useResumes";
 import { useUserProfile } from "@/hooks/useUserProfile";
+import TemplateLibrary from "@/components/resume/TemplateLibrary";
+
+type Tab = "my-resumes" | "templates";
 
 const Dashboard = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [activeTab, setActiveTab] = useState<Tab>("my-resumes");
   const navigate = useNavigate();
 
   const { data: resumes, isLoading } = useResumes();
@@ -70,97 +74,139 @@ const Dashboard = () => {
         </div>
       </header>
 
+      {/* Tab Navigation */}
+      <div className="border-b border-border/50">
+        <div className="container px-6 flex gap-1">
+          <button
+            onClick={() => setActiveTab("my-resumes")}
+            className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+              activeTab === "my-resumes"
+                ? "border-primary text-primary"
+                : "border-transparent text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <FileText className="w-4 h-4" />
+            My Resumes
+          </button>
+          <button
+            onClick={() => setActiveTab("templates")}
+            className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+              activeTab === "templates"
+                ? "border-primary text-primary"
+                : "border-transparent text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <Library className="w-4 h-4" />
+            Template Library
+          </button>
+        </div>
+      </div>
+
       {/* Content */}
       <div className="container px-6 py-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h1 className="text-3xl font-bold font-display mb-2">
-                My Resumes
-              </h1>
-              <p className="text-muted-foreground">
-                Create and manage your professional resumes
-              </p>
-            </div>
-            <Button onClick={() => navigate("/builder")}>
-              <Plus className="w-4 h-4 mr-2" />
-              New Resume
-            </Button>
-          </div>
-
-          {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="h-64 rounded-xl bg-muted animate-pulse"
-                />
-              ))}
-            </div>
-          ) : resumes && resumes.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {resumes.map((resume) => (
-                <div
-                  key={resume.id}
-                  className="group relative p-6 rounded-xl border border-border bg-card hover:border-primary/50 transition-all"
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <FileText className="w-8 h-8 text-primary" />
-                    <div className="flex gap-2">
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => navigate(`/builder?id=${resume.id}`)}
-                      >
-                        <Edit className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => handleDelete(resume.id)}
-                        disabled={deleteResume.isPending}
-                      >
-                        <Trash2 className="w-4 h-4 text-destructive" />
-                      </Button>
-                    </div>
-                  </div>
-
-                  <h3 className="font-semibold text-lg mb-2 line-clamp-1">
-                    {resume.title}
-                  </h3>
-
-                  <div className="space-y-2 text-sm text-muted-foreground">
-                    <p>Template: {resume.template_type}</p>
-                    <p>
-                      Updated:{" "}
-                      {new Date(resume.updated_at).toLocaleDateString()}
-                    </p>
-                  </div>
-
-                  <Button
-                    className="w-full mt-4"
-                    variant="outline"
-                    onClick={() => navigate(`/builder?id=${resume.id}`)}
-                  >
-                    Edit Resume
-                  </Button>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16">
-              <FileText className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">No resumes yet</h3>
-              <p className="text-muted-foreground mb-6">
-                Create your first resume to get started
-              </p>
+        {activeTab === "my-resumes" && (
+          <div className="max-w-6xl mx-auto">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h1 className="text-3xl font-bold font-display mb-2">
+                  My Resumes
+                </h1>
+                <p className="text-muted-foreground">
+                  Create and manage your professional resumes
+                </p>
+              </div>
               <Button onClick={() => navigate("/builder")}>
                 <Plus className="w-4 h-4 mr-2" />
-                Create Resume
+                New Resume
               </Button>
             </div>
-          )}
-        </div>
+
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="h-64 rounded-xl bg-muted animate-pulse"
+                  />
+                ))}
+              </div>
+            ) : resumes && resumes.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {resumes.map((resume) => (
+                  <div
+                    key={resume.id}
+                    className="group relative p-6 rounded-xl border border-border bg-card hover:border-primary/50 transition-all"
+                  >
+                    <div className="flex items-start justify-between mb-4">
+                      <FileText className="w-8 h-8 text-primary" />
+                      <div className="flex gap-2">
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => navigate(`/builder?id=${resume.id}`)}
+                        >
+                          <Edit className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => handleDelete(resume.id)}
+                          disabled={deleteResume.isPending}
+                        >
+                          <Trash2 className="w-4 h-4 text-destructive" />
+                        </Button>
+                      </div>
+                    </div>
+
+                    <h3 className="font-semibold text-lg mb-2 line-clamp-1">
+                      {resume.title}
+                    </h3>
+
+                    <div className="space-y-2 text-sm text-muted-foreground">
+                      <p>Template: {resume.template_type}</p>
+                      <p>
+                        Updated:{" "}
+                        {new Date(resume.updated_at).toLocaleDateString()}
+                      </p>
+                    </div>
+
+                    <Button
+                      className="w-full mt-4"
+                      variant="outline"
+                      onClick={() => navigate(`/builder?id=${resume.id}`)}
+                    >
+                      Edit Resume
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-16">
+                <FileText className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">No resumes yet</h3>
+                <p className="text-muted-foreground mb-6">
+                  Create your first resume or use a template from our library
+                </p>
+                <div className="flex gap-3 justify-center">
+                  <Button onClick={() => navigate("/builder")}>
+                    <Plus className="w-4 h-4 mr-2" />
+                    Create Resume
+                  </Button>
+                  <Button variant="outline" onClick={() => setActiveTab("templates")}>
+                    <Library className="w-4 h-4 mr-2" />
+                    Browse Templates
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {activeTab === "templates" && (
+          <div className="max-w-6xl mx-auto">
+            <TemplateLibrary isPremiumUser={userProfile?.is_premium || false} />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -174,6 +174,16 @@ const ResumeForm = ({ data, onChange }: ResumeFormProps) => {
           </div>
           
           <div>
+            <Label htmlFor="github">GitHub (Optional)</Label>
+            <Input
+              id="github"
+              value={data.personalInfo.github || ""}
+              onChange={(e) => updatePersonalInfo("github", e.target.value)}
+              placeholder="github.com/johndoe"
+            />
+          </div>
+          
+          <div>
             <Label htmlFor="portfolio">Portfolio (Optional)</Label>
             <Input
               id="portfolio"

@@ -5,6 +5,7 @@ export interface PersonalInfo {
   location: string;
   linkedin?: string;
   portfolio?: string;
+  github?: string;
   summary: string;
 }
 
@@ -52,7 +53,17 @@ export interface ResumeData {
   projects: Project[];
 }
 
-export type TemplateType = "modern" | "classic" | "minimal" | "creative";
+export type TemplateType = 
+  | "modern" 
+  | "classic" 
+  | "minimal" 
+  | "creative"
+  | "executive"
+  | "tech"
+  | "designer"
+  | "academic"
+  | "anurag"
+  | "altacv";
 
 export interface ResumeTemplate {
   id: TemplateType;
@@ -60,4 +71,10 @@ export interface ResumeTemplate {
   description: string;
   preview: string;
   isPremium: boolean;
+  category?: "professional" | "creative" | "academic" | "tech";
+}
+
+// Template Component Props Interface
+export interface TemplateProps {
+  data: ResumeData;
 }
