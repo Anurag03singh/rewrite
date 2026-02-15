@@ -62,7 +62,7 @@ export const resumeTemplates: ResumeTemplate[] = [
     name: "AltaCV Modern",
     description: "Two-column design with elegant header and color accents",
     preview: "/templates/altacv.png",
-    isPremium: true,
+    isPremium: false,
     category: "creative",
   },
 ];

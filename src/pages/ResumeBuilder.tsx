@@ -77,6 +77,15 @@ const ResumeBuilder = () => {
     }
   }, [resumeData, selectedTemplate]);
 
+  // Check if basic profile is complete
+  const isProfileComplete = () => {
+    return (
+      resumeData.personalInfo.fullName.trim() !== "" &&
+      resumeData.personalInfo.email.trim() !== "" &&
+      resumeData.personalInfo.phone.trim() !== ""
+    );
+  };
+
   const handleSave = async () => {
     try {
       const resumePayload = {
@@ -230,7 +239,7 @@ const ResumeBuilder = () => {
                 </>
               )}
             </Button>
-            <Button size="sm" onClick={handleDownload} disabled={isGenerating}>
+            <Button size="sm" onClick={handleDownload} disabled={isGenerating || !isProfileComplete()}>
               {isGenerating ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -263,15 +272,49 @@ const ResumeBuilder = () => {
             )}
           </div>
 
-          {/* Right Side - Live Preview */}
+          {/* Right Side - Conditional Preview */}
           <div className="lg:sticky lg:top-24 h-fit">
-            <div className="bg-neutral-100 dark:bg-neutral-900 p-4 rounded-xl">
-              <div className="bg-white rounded-lg overflow-hidden shadow-2xl">
-                <div id="resume-preview" className="transform scale-75 origin-top">
-                  {renderTemplate()}
+            {isProfileComplete() ? (
+              <div className="bg-neutral-100 dark:bg-neutral-900 p-4 rounded-xl">
+                <div className="bg-white rounded-lg overflow-hidden shadow-2xl">
+                  <div id="resume-preview" className="transform scale-75 origin-top">
+                    {renderTemplate()}
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="bg-neutral-100 dark:bg-neutral-900 p-8 rounded-xl text-center">
+                <div className="space-y-4">
+                  <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                    <Eye className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-semibold">Complete Your Profile</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Fill in your basic information (Name, Email, Phone) to see the live preview of your resume.
+                  </p>
+                  <div className="pt-4 space-y-2 text-left">
+                    <div className="flex items-center gap-2 text-sm">
+                      <div className={`w-2 h-2 rounded-full ${resumeData.personalInfo.fullName ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+                      <span className={resumeData.personalInfo.fullName ? 'text-green-600' : 'text-muted-foreground'}>
+                        Full Name {resumeData.personalInfo.fullName && '✓'}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <div className={`w-2 h-2 rounded-full ${resumeData.personalInfo.email ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+                      <span className={resumeData.personalInfo.email ? 'text-green-600' : 'text-muted-foreground'}>
+                        Email {resumeData.personalInfo.email && '✓'}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <div className={`w-2 h-2 rounded-full ${resumeData.personalInfo.phone ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+                      <span className={resumeData.personalInfo.phone ? 'text-green-600' : 'text-muted-foreground'}>
+                        Phone {resumeData.personalInfo.phone && '✓'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
